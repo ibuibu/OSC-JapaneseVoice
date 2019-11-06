@@ -9,11 +9,46 @@
 <body>
 
     <input type="button" id="sample" value="送信">
-
+    <button id="btn">start</button>
+    <div id="content"></div>
     <script>
         var sock = new WebSocket('ws://127.0.0.1:5001');
 
-        // 接続
+        //音声認識
+        const speech = new webkitSpeechRecognition();
+        speech.lang = 'ja-JP';
+        const btn = document.getElementById('btn');
+        const content = document.getElementById('content');
+        btn.addEventListener('click', function () {
+            // 音声認識をスタート
+            speech.start();
+        });
+        speech.onresult = function (e) {
+
+            speech.stop();
+            if (e.results[0].isFinal) {
+              autotext = e.results[0][0].transcript
+              console.log(e);
+              console.log(autotext);
+              content.innerHTML += '<div>' + autotext + '</div>';
+            }
+
+            var A = window.btoa(unescape(encodeURIComponent(autotext))); 
+
+            var jsonobj = {"osc":"WsOscSend","path":'/osc/button1',"type":'s',"data":A};
+    		    var json = JSON.stringify(jsonobj);
+                sock.send(json);
+
+
+        }
+        speech.onend = () => {
+            speech.start()
+        };
+
+
+        var autotext = '';
+
+        // websocket接続
         sock.addEventListener('open',function(e){
             console.log('Socket 接続成功');
         });
@@ -23,15 +58,18 @@
             console.log(e.data);
 				});
 
-				var jsonobj = {"osc":"WsOscSend","path":'/osc/button1',"type":'i',"data":[0,1,2]};
-		    var json = JSON.stringify(jsonobj);
-
-				document.addEventListener('DOMContentLoaded',function(e){
+		document.addEventListener('DOMContentLoaded',function(e){
             // サーバーにデータを送る
             document.getElementById('sample').addEventListener('click',function(e){
+                console.log([autotext]);
+                var jsonobj = {"osc":"WsOscSend","path":'/osc/button1',"type":'s',"data":autotext};
+    		    var json = JSON.stringify(jsonobj);
                 sock.send(json);
             });
         });
+
+        //
+
     </script>
 </body>
 </html>

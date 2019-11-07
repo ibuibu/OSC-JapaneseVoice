@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>OSC-JapaneseVoice</title>
 </head>
 <body>
 
@@ -32,9 +32,9 @@
               content.innerHTML += '<div>' + autotext + '</div>';
             }
 
-            var A = window.btoa(unescape(encodeURIComponent(autotext))); 
+            var data = window.btoa(unescape(encodeURIComponent(autotext))); 
 
-            var jsonobj = {"osc":"WsOscSend","path":'/myvoice',"type":'s',"data":A};
+            var jsonobj = {"osc":"WsOscSend","path":'/voice',"type":'s',"data":data};
     		    var json = JSON.stringify(jsonobj);
                 sock.send(json);
 
@@ -56,16 +56,6 @@
         sock.addEventListener('message',function(e){
             console.log(e.data);
 				});
-
-		// document.addEventListener('DOMContentLoaded',function(e){
-        //     // サーバーにデータを送る
-        //     document.getElementById('sample').addEventListener('click',function(e){
-        //         console.log([autotext]);
-        //         var jsonobj = {"osc":"WsOscSend","path":'/osc/button1',"type":'s',"data":autotext};
-    	// 	    var json = JSON.stringify(jsonobj);
-        //         sock.send(json);
-        //     });
-        // });
 
     </script>
 </body>

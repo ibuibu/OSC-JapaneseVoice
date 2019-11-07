@@ -1,8 +1,8 @@
 # OSC-JapaneseVoice
-
+## 概要
 日本語の音声をテキスト化して、OSC送信するアプリです。
 
-OSC受信のデモアプリとして、TouchDesignerのサンプルもあります。
+OSC受信のデモアプリとして、TouchDesigner、processingのサンプルデータを置いておきました。
 
 ## 利用方法
 ### 必要環境

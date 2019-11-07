@@ -8,8 +8,7 @@
 </head>
 <body>
 
-    <input type="button" id="sample" value="送信">
-    <button id="btn">start</button>
+    <button id="btn">音声認識をスタート</button>
     <div id="content"></div>
     <script>
         var sock = new WebSocket('ws://127.0.0.1:5001');
@@ -35,7 +34,7 @@
 
             var A = window.btoa(unescape(encodeURIComponent(autotext))); 
 
-            var jsonobj = {"osc":"WsOscSend","path":'/osc/button1',"type":'s',"data":A};
+            var jsonobj = {"osc":"WsOscSend","path":'/myvoice',"type":'s',"data":A};
     		    var json = JSON.stringify(jsonobj);
                 sock.send(json);
 
@@ -58,17 +57,15 @@
             console.log(e.data);
 				});
 
-		document.addEventListener('DOMContentLoaded',function(e){
-            // サーバーにデータを送る
-            document.getElementById('sample').addEventListener('click',function(e){
-                console.log([autotext]);
-                var jsonobj = {"osc":"WsOscSend","path":'/osc/button1',"type":'s',"data":autotext};
-    		    var json = JSON.stringify(jsonobj);
-                sock.send(json);
-            });
-        });
-
-        //
+		// document.addEventListener('DOMContentLoaded',function(e){
+        //     // サーバーにデータを送る
+        //     document.getElementById('sample').addEventListener('click',function(e){
+        //         console.log([autotext]);
+        //         var jsonobj = {"osc":"WsOscSend","path":'/osc/button1',"type":'s',"data":autotext};
+    	// 	    var json = JSON.stringify(jsonobj);
+        //         sock.send(json);
+        //     });
+        // });
 
     </script>
 </body>

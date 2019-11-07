@@ -5,7 +5,7 @@
 ## 概要
 日本語の音声をテキスト化して、OSC送信するアプリです。
 
-OSC受信のデモアプリとして、TouchDesigner、processingのサンプルデータを置いておきました。
+OSC受信のデモとして、TouchDesigner、processingのサンプルを置いておきました。
 ![voice](https://user-images.githubusercontent.com/5201487/68378254-228f7700-018f-11ea-9ee4-dceadb1401c8.gif)
 <br>
 
